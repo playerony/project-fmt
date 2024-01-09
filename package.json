@@ -2,6 +2,7 @@
   "name": "project-fmt",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,7 +14,8 @@
     "grlc": "bash ./scripts/git-reset-local-changes.sh",
     "prettier": "prettier \"**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "yarn prettier --write",
-    "format:check": "yarn prettier --check"
+    "format:check": "yarn prettier --check",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "14.0.4",
@@ -21,6 +23,8 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.4",
+    "@commitlint/config-conventional": "^18.4.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -28,6 +32,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "husky": "^8.0.0",
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.11",
