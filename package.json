@@ -19,7 +19,8 @@
     "test:ci": "NEXT_PUBLIC_APP_ENV=test jest --ci --coverage --forceExit",
     "test:coverage": "NEXT_PUBLIC_APP_ENV=test jest --collectCoverage",
     "test:update-snapshot": "NEXT_PUBLIC_APP_ENV=test jest --updateSnapshot",
-    "test:watch": "NEXT_PUBLIC_APP_ENV=test jest --watch"
+    "test:watch": "NEXT_PUBLIC_APP_ENV=test jest --watch",
+    "open:coverage": "yarn test:coverage && open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
     "next": "14.0.4",
