@@ -18,6 +18,8 @@
     "prettier": "prettier \"**/*.+(js|jsx|ts|tsx|json)\"",
     "shadcn:add": "npx shadcn-ui@latest add",
     "start": "next start",
+    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint:fix": "stylelint \"**/*.css\" --fix",
     "test": "NEXT_PUBLIC_APP_ENV=test jest",
     "test:ci": "NEXT_PUBLIC_APP_ENV=test jest --ci --coverage --forceExit",
     "test:coverage": "NEXT_PUBLIC_APP_ENV=test jest --collectCoverage",
@@ -72,6 +74,8 @@
     "prettier": "^3.1.1",
     "prettier-package-json": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5"

@@ -33,12 +33,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Typecheck, format check, and lint
+      - name: Typecheck, format check, lint and stylelint
         run: |
           yarn typecheck &
           yarn format:check &
-          yarn lint:check &
+          yarn lint &
+          yarn stylelint &
           wait
 
       - name: Test
-        run: yarn test
+        run: yarn test:ci
