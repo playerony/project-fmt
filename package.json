@@ -5,8 +5,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "format": "yarn prettier --check",
-    "format:fix": "yarn prettier --write",
+    "format": "yarn prettier --write",
+    "format:check": "yarn prettier --check",
     "gcb": "bash ./scripts/git-create-branch.sh",
     "gcdwp": "bash ./scripts/git-checkout-develop-with-pull.sh",
     "gpc": "bash ./scripts/git-push-changes.sh",
