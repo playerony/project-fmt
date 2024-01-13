@@ -39,7 +39,7 @@ export const GeneralForm = ({ control, onContinueButtonClick }: GeneralFormProps
               control,
               name: 'general.language',
             }}
-            description="What language should your article be written in?"
+            description="What language should your story be written in?"
             label="Language"
             options={[
               { label: 'English', value: 'english' },
