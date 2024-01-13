@@ -8,7 +8,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+import { TabsContent } from './parts/tabs-content';
 
 const ComponentsForm = () => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
@@ -35,40 +37,42 @@ const ComponentsForm = () => (
             </TabsList>
             <ScrollBar className="hidden" orientation="horizontal" />
           </ScrollArea>
-          <TabsContent value="once-upon-a-time">
-            Setting the scene can help the audience connect to the story as if they were there when
-            it happened.
-          </TabsContent>
-          <TabsContent value="a-world-view">
-            Many great stories have perspective—an angle or lens that shapes the telling of the
-            story, and what people take away from it.
-          </TabsContent>
-          <TabsContent value="great-characters">
-            Heroes. Villains. Supporting characters. Who or what you choose—and what their
-            characteristics and traits are—is critical to the action and meaning of your story...
-          </TabsContent>
-          <TabsContent value="challenging-situations">
-            We learn a lot about people through their toughest moments—their near-death experiences,
-            moments of lapsed judgement, and foibles.
-          </TabsContent>
-          <TabsContent value="conflict">
-            Challenging situations and moments of change naturally lead to conflict—between people,
-            values, the past versus the future, big bets versus the status quo.
-          </TabsContent>
-          <TabsContent value="drama">
-            A heightened sense of drama keeps the audience riveted to the story.
-          </TabsContent>
-          <TabsContent value="lessons-learned">
-            Everyone has learned lessons through experiences that are worthy of sharing.
-          </TabsContent>
-          <TabsContent value="new-possibility">
-            When your story is about what might be possible in the future—not just what has happened
-            in the past—a story might include a future view.
-          </TabsContent>
-          <TabsContent value="happily-ever-after">
-            Sometimes the job of a story is to leave the audience with a sense of resolution and
-            wellbeing.
-          </TabsContent>
+          <TabsContent
+            description="Setting the scene can help the audience connect to the story as if they were there when it happened."
+            value="once-upon-a-time"
+          />
+          <TabsContent
+            description="Many great stories have perspective—an angle or lens that shapes the telling of the story, and what people take away from it."
+            value="a-world-view"
+          />
+          <TabsContent
+            description="Heroes. Villains. Supporting characters. Who or what you choose—and what their characteristics and traits are—is critical to the action and meaning of your story..."
+            value="great-characters"
+          />
+          <TabsContent
+            description="We learn a lot about people through their toughest moments—their near-death experiences, moments of lapsed judgement, and foibles."
+            value="challenging-situations"
+          />
+          <TabsContent
+            description="Challenging situations and moments of change naturally lead to conflict—between people, values, the past versus the future, big bets versus the status quo."
+            value="conflict"
+          />
+          <TabsContent
+            description="A heightened sense of drama keeps the audience riveted to the story."
+            value="drama"
+          />
+          <TabsContent
+            description="Everyone has learned lessons through experiences that are worthy of sharing."
+            value="lessons-learned"
+          />
+          <TabsContent
+            description="When your story is about what might be possible in the future—not just what has happened in the past—a story might include a future view."
+            value="new-possibility"
+          />
+          <TabsContent
+            description="Sometimes the job of a story is to leave the audience with a sense of resolution and wellbeing."
+            value="happily-ever-after"
+          />
         </Tabs>
       </CardContent>
       <CardFooter>
