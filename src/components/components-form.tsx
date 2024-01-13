@@ -1,18 +1,38 @@
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { ScrollArea, ScrollBar } from './ui/scroll-area';
+import { TabsContent as ShadcnTabsContent, Tabs, TabsList, TabsTrigger } from './ui/tabs';
+import { Textarea } from './ui/textarea';
 
-import { TabsContent } from './parts/tabs-content';
+interface TabsContentProps {
+  description: string;
+  value: string;
+}
 
-const ComponentsForm = () => (
+const TabsContent = ({ description, value }: TabsContentProps) => (
+  <ShadcnTabsContent value={value}>
+    <p className="mb-4 text-sm text-muted-foreground">{description}</p>
+    <Textarea
+      className="max-h-[200px] min-h-[200px] flex-1 p-4 md:max-h-[300px] md:min-h-[300px]"
+      placeholder="Write in your own details in the blank space on the cards provided—short sentences or bullet points will do."
+    />
+  </ShadcnTabsContent>
+);
+
+type ComponentType =
+  | 'once-upon-a-time'
+  | 'a-world-view'
+  | 'great-characters'
+  | 'challenging-situations'
+  | 'conflict'
+  | 'drama'
+  | 'lessons-learned'
+  | 'new-possibility'
+  | 'happily-ever-after';
+
+export type ComponentsFormValues = Record<ComponentType, string>;
+
+export const ComponentsForm = () => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
     <Card>
       <CardHeader>
@@ -81,5 +101,3 @@ const ComponentsForm = () => (
     </Card>
   </div>
 );
-
-export default ComponentsForm;

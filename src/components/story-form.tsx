@@ -11,7 +11,12 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 
-const StoryForm = () => (
+export interface StoryFormValues {
+  storyBriefDescription: string;
+  storyType: string;
+}
+
+export const StoryForm = () => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
     <Card>
       <CardHeader>
@@ -79,5 +84,3 @@ const StoryForm = () => (
     </Card>
   </div>
 );
-
-export default StoryForm;

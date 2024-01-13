@@ -17,18 +17,14 @@ export const metadata: Metadata = {
 };
 
 interface RootLayoutProps {
-  components: ReactNode;
-  general: ReactNode;
-  story: ReactNode;
+  children: ReactNode;
 }
 
-const RootLayout = ({ components, general, story }: RootLayoutProps) => (
+const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en">
     <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
       <ThemeProvider disableTransitionOnChange enableSystem attribute="class" defaultTheme="dark">
-        {general}
-        {story}
-        {components}
+        {children}
       </ThemeProvider>
     </body>
   </html>
