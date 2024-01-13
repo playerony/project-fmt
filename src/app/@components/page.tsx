@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const ComponentsForm = () => (
@@ -17,18 +18,23 @@ const ComponentsForm = () => (
         <CardDescription>Find the components of your great story.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
-        <Tabs className="w-[400px]" defaultValue="once-upon-a-time" orientation="vertical">
-          <TabsList className="overflow-x-auto">
-            <TabsTrigger value="once-upon-a-time">&quot;Once upon a time...&quot;</TabsTrigger>
-            <TabsTrigger value="a-world-view">A world view</TabsTrigger>
-            <TabsTrigger value="great-characters">Great characters</TabsTrigger>
-            <TabsTrigger value="challenging-situations">Challenging situations</TabsTrigger>
-            <TabsTrigger value="conflict">Conflict</TabsTrigger>
-            <TabsTrigger value="drama">Drama</TabsTrigger>
-            <TabsTrigger value="lessons-learned">Lessons learned</TabsTrigger>
-            <TabsTrigger value="new-possibility">New possibility</TabsTrigger>
-            <TabsTrigger value="happily-ever-after">&quot;Happily ever after...&quot;</TabsTrigger>
-          </TabsList>
+        <Tabs className="w-[400px]" defaultValue="once-upon-a-time">
+          <ScrollArea>
+            <TabsList>
+              <TabsTrigger value="once-upon-a-time">&quot;Once upon a time...&quot;</TabsTrigger>
+              <TabsTrigger value="a-world-view">A world view</TabsTrigger>
+              <TabsTrigger value="great-characters">Great characters</TabsTrigger>
+              <TabsTrigger value="challenging-situations">Challenging situations</TabsTrigger>
+              <TabsTrigger value="conflict">Conflict</TabsTrigger>
+              <TabsTrigger value="drama">Drama</TabsTrigger>
+              <TabsTrigger value="lessons-learned">Lessons learned</TabsTrigger>
+              <TabsTrigger value="new-possibility">New possibility</TabsTrigger>
+              <TabsTrigger value="happily-ever-after">
+                &quot;Happily ever after...&quot;
+              </TabsTrigger>
+            </TabsList>
+            <ScrollBar className="hidden" orientation="horizontal" />
+          </ScrollArea>
           <TabsContent value="once-upon-a-time">
             Setting the scene can help the audience connect to the story as if they were there when
             it happened.
@@ -50,7 +56,7 @@ const ComponentsForm = () => (
             values, the past versus the future, big bets versus the status quo.
           </TabsContent>
           <TabsContent value="drama">
-            MA heightened sense of drama keeps the audience riveted to the story.
+            A heightened sense of drama keeps the audience riveted to the story.
           </TabsContent>
           <TabsContent value="lessons-learned">
             Everyone has learned lessons through experiences that are worthy of sharing.
