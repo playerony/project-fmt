@@ -1,2 +1,3 @@
 .lintstagedrc.js
 stylelint.config.js
+tailwind.config.js
