@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Control } from 'react-hook-form';
 
 import { RadioGroupController } from './atoms/radio-group-controller';
+import { TextareaController } from './atoms/textarea-controller';
 
 export interface StoryFormValues {
   storyBriefDescription: string;
@@ -70,8 +70,12 @@ export const StoryForm = ({ control }: StoryFormProps) => (
             </Label>
           )}
         />
-        <Textarea
+        <TextareaController
           className="max-h-[200px] min-h-[200px] flex-1 p-4 md:max-h-[300px] md:min-h-[300px]"
+          controllerProps={{
+            control,
+            name: 'story.storyBriefDescription',
+          }}
           placeholder="What’s your story about, specifically? Get these early outlines on paper."
         />
       </CardContent>
