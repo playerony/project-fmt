@@ -14,7 +14,7 @@ interface FormValues {
 }
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(2);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -54,7 +54,7 @@ const Home = () => {
           onContinueButtonClick={handleGeneralFormContinueButtonClick}
         />
       ) : null}
-      {currentStep === 2 ? <StoryForm /> : null}
+      {currentStep === 2 ? <StoryForm control={form.control} /> : null}
       {currentStep === 3 ? <ComponentsForm /> : null}
     </Form>
   );
