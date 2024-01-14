@@ -14,7 +14,7 @@ interface FormValues {
 }
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(3);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -55,7 +55,7 @@ const Home = () => {
         />
       ) : null}
       {currentStep === 2 ? <StoryForm control={form.control} /> : null}
-      {currentStep === 3 ? <ComponentsForm /> : null}
+      {currentStep === 3 ? <ComponentsForm control={form.control} /> : null}
     </Form>
   );
 };
