@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import { FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { FormControl, FormDescription, FormField, FormItem, FormLabel } from '../ui/form';
+import { FormControl, FormDescription, FormField, FormItem, FormLabel } from './ui/form';
 
 interface Option {
   label: string;

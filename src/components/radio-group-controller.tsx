@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { FormControl, FormField, FormItem, FormLabel } from '../ui/form';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
+import { FormControl, FormField, FormItem, FormLabel } from './ui/form';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 
 interface Option {
   itemClassName?: string;

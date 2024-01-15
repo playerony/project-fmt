@@ -1,7 +1,7 @@
 import { FieldValues, UseControllerProps } from 'react-hook-form';
 
-import { FormDescription, FormField, FormItem, FormLabel } from '../ui/form';
-import { Textarea } from '../ui/textarea';
+import { FormDescription, FormField, FormItem, FormLabel } from './ui/form';
+import { Textarea } from './ui/textarea';
 
 interface TextareaControllerProps<TFieldValues extends FieldValues = FieldValues> {
   className?: string;
