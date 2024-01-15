@@ -50,6 +50,8 @@ const Home = () => {
     setCurrentStep(2);
   };
 
+  const selectedArchetype = form.watch('archetype');
+
   return (
     <Form {...form}>
       {currentStep === 1 ? (
@@ -60,7 +62,9 @@ const Home = () => {
       ) : null}
       {currentStep === 2 ? <StoryForm control={form.control} /> : null}
       {currentStep === 3 ? <ComponentsForm control={form.control} /> : null}
-      {currentStep === 4 ? <ArchetypeForm control={form.control} /> : null}
+      {currentStep === 4 ? (
+        <ArchetypeForm control={form.control} selectedArchetype={selectedArchetype} />
+      ) : null}
     </Form>
   );
 };

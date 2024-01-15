@@ -5,8 +5,9 @@ import { FormControl, FormField, FormItem, FormLabel } from './ui/form';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 
 interface Option {
+  icon?: ReactNode;
   itemClassName?: string;
-  label: string;
+  label: ReactNode;
   value: string;
 }
 
