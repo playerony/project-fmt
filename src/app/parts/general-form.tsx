@@ -1,5 +1,6 @@
 'use client';
 
+import { SelectController } from '@/components/select-controller';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,8 +11,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Control } from 'react-hook-form';
-
-import { SelectController } from './atoms/select-controller';
 
 export interface GeneralFormValues {
   language: string;

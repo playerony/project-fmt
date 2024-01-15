@@ -1,3 +1,5 @@
+import { RadioGroupController } from '@/components/radio-group-controller';
+import { TextareaController } from '@/components/textarea-controller';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,9 +11,6 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Control } from 'react-hook-form';
-
-import { RadioGroupController } from './atoms/radio-group-controller';
-import { TextareaController } from './atoms/textarea-controller';
 
 export interface StoryFormValues {
   storyBriefDescription: string;

@@ -1,20 +1,23 @@
 'use client';
 
-import { ComponentsForm, ComponentsFormValues } from '@/components/components-form';
-import { GeneralForm, GeneralFormValues } from '@/components/general-form';
-import { StoryForm, StoryFormValues } from '@/components/story-form';
 import { Form } from '@/components/ui/form';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { ArchetypeForm } from './parts/archetype-form';
+import { ComponentsForm, ComponentsFormValues } from './parts/components-form';
+import { GeneralForm, GeneralFormValues } from './parts/general-form';
+import { StoryForm, StoryFormValues } from './parts/story-form';
+
 interface FormValues {
+  archetype?: string;
   components?: ComponentsFormValues;
   general?: GeneralFormValues;
   story?: StoryFormValues;
 }
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(4);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -39,6 +42,7 @@ const Home = () => {
         'new-possibility': '',
         'once-upon-a-time': '',
       },
+      archetype: 'coming-of-age',
     },
   });
 
@@ -56,6 +60,7 @@ const Home = () => {
       ) : null}
       {currentStep === 2 ? <StoryForm control={form.control} /> : null}
       {currentStep === 3 ? <ComponentsForm control={form.control} /> : null}
+      {currentStep === 4 ? <ArchetypeForm control={form.control} /> : null}
     </Form>
   );
 };
