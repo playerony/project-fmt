@@ -1,85 +1,63 @@
 'use client';
 
-import { Form } from '@/components/ui/form';
+import {
+  ARCHETYPE_FORM_VALUES_KEY,
+  COMPONENTS_FORM_VALUES_KEY,
+  GENERAL_FORM_VALUES_KEY,
+  STORY_FORM_VALUES_KEY,
+} from '@/constants';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
-import { ArchetypeForm } from './parts/archetype-form';
+import { ArchetypeForm, ArchetypeFormValues } from './parts/archetype-form';
 import { ComponentsForm, ComponentsFormValues } from './parts/components-form';
 import { GeneralForm, GeneralFormValues } from './parts/general-form';
 import { StoryForm, StoryFormValues } from './parts/story-form';
-
-interface FormValues {
-  archetype?: string;
-  components?: ComponentsFormValues;
-  general?: GeneralFormValues;
-  story?: StoryFormValues;
-}
+import { setFormData } from './utils';
 
 const Home = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const form = useForm<FormValues>({
-    defaultValues: {
-      general: {
-        language: 'english',
-        languageComplexity: 'b2',
-        lengthOfStory: 'medium',
-        pointOfView: 'first',
-      },
-      story: {
-        storyBriefDescription: '',
-        storyType: 'the-story-of-me',
-      },
-      components: {
-        'a-world-view': '',
-        'challenging-situations': '',
-        conflict: '',
-        drama: '',
-        'great-characters': '',
-        'happily-ever-after': '',
-        'lessons-learned': '',
-        'new-possibility': '',
-        'once-upon-a-time': '',
-      },
-      archetype: 'coming-of-age',
-    },
-  });
+  const handleBackButtonClick = () => setCurrentStep((prevStep) => prevStep - 1);
 
-  const handleChangeStepClick = (step: number) => () => {
-    setCurrentStep(step);
+  const handleGeneralFormSubmit = (data: GeneralFormValues) => {
+    setCurrentStep(2);
+    setFormData(GENERAL_FORM_VALUES_KEY, data);
   };
 
-  const selectedArchetype = form.watch('archetype');
+  const handleStoryFormSubmit = (data: StoryFormValues) => {
+    setCurrentStep(3);
+    setFormData(STORY_FORM_VALUES_KEY, data);
+  };
+
+  const handleComponentsFormSubmit = (data: ComponentsFormValues) => {
+    setCurrentStep(4);
+    setFormData(COMPONENTS_FORM_VALUES_KEY, data);
+  };
+
+  const handleArchetypeFormSubmit = (data: ArchetypeFormValues) => {
+    setCurrentStep(4);
+    setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
+  };
 
   return (
-    <Form {...form}>
-      {currentStep === 1 ? (
-        <GeneralForm control={form.control} onContinueButtonClick={handleChangeStepClick(2)} />
-      ) : null}
+    <>
+      {currentStep === 1 ? <GeneralForm onSubmit={handleGeneralFormSubmit} /> : null}
       {currentStep === 2 ? (
-        <StoryForm
-          control={form.control}
-          onBackButtonClick={handleChangeStepClick(1)}
-          onContinueButtonClick={handleChangeStepClick(3)}
-        />
+        <StoryForm onBackButtonClick={handleBackButtonClick} onSubmit={handleStoryFormSubmit} />
       ) : null}
       {currentStep === 3 ? (
         <ComponentsForm
-          control={form.control}
-          onBackButtonClick={handleChangeStepClick(2)}
-          onContinueButtonClick={handleChangeStepClick(4)}
+          onBackButtonClick={handleBackButtonClick}
+          onSubmit={handleComponentsFormSubmit}
         />
       ) : null}
       {currentStep === 4 ? (
         <ArchetypeForm
-          control={form.control}
-          selectedArchetype={selectedArchetype}
-          onBackButtonClick={handleChangeStepClick(3)}
-          onContinueButtonClick={handleChangeStepClick(4)}
+          onBackButtonClick={handleBackButtonClick}
+          onSubmit={handleArchetypeFormSubmit}
         />
       ) : null}
-    </Form>
+    </>
   );
 };
 
