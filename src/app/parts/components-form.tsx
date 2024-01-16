@@ -8,9 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Form } from '@/components/ui/form';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Control } from 'react-hook-form';
+import { COMPONENTS_FORM_VALUES_KEY } from '@/constants';
+import { useForm } from 'react-hook-form';
+
+import { getFormData } from '../utils';
 
 type ComponentType =
   | 'once-upon-a-time'
@@ -25,10 +29,21 @@ type ComponentType =
 
 export type ComponentsFormValues = Record<ComponentType, string>;
 
+const DEFAULT_FORM_VALUES: ComponentsFormValues = {
+  'once-upon-a-time': '',
+  'a-world-view': '',
+  'great-characters': '',
+  'challenging-situations': '',
+  conflict: '',
+  drama: '',
+  'lessons-learned': '',
+  'new-possibility': '',
+  'happily-ever-after': '',
+};
+
 interface ComponentsFormProps {
-  control: Control<{ components?: ComponentsFormValues }>;
   onBackButtonClick: () => void;
-  onContinueButtonClick: () => void;
+  onSubmit: (data: ComponentsFormValues) => void;
 }
 
 const components: { description: string; value: ComponentType }[] = [
@@ -77,58 +92,67 @@ const components: { description: string; value: ComponentType }[] = [
   },
 ];
 
-export const ComponentsForm = ({
-  control,
-  onBackButtonClick,
-  onContinueButtonClick,
-}: ComponentsFormProps) => (
-  <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
-    <Card>
-      <CardHeader>
-        <CardTitle>Components of your story</CardTitle>
-        <CardDescription>Find the components of your great story.</CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-6">
-        <Tabs className="w-[400px]" defaultValue="once-upon-a-time">
-          <ScrollArea>
-            <TabsList>
-              <TabsTrigger value="once-upon-a-time">&quot;Once upon a time...&quot;</TabsTrigger>
-              <TabsTrigger value="a-world-view">A world view</TabsTrigger>
-              <TabsTrigger value="great-characters">Great characters</TabsTrigger>
-              <TabsTrigger value="challenging-situations">Challenging situations</TabsTrigger>
-              <TabsTrigger value="conflict">Conflict</TabsTrigger>
-              <TabsTrigger value="drama">Drama</TabsTrigger>
-              <TabsTrigger value="lessons-learned">Lessons learned</TabsTrigger>
-              <TabsTrigger value="new-possibility">New possibility</TabsTrigger>
-              <TabsTrigger value="happily-ever-after">
-                &quot;Happily ever after...&quot;
-              </TabsTrigger>
-            </TabsList>
-            <ScrollBar className="hidden" orientation="horizontal" />
-          </ScrollArea>
-          {components.map(({ description, value }) => (
-            <TabsContent key={value} value={value}>
-              <p className="mb-4 text-sm text-muted-foreground">{description}</p>
-              <TextareaController
-                className="max-h-[200px] min-h-[200px] flex-1 p-4 md:max-h-[300px] md:min-h-[300px]"
-                controllerProps={{
-                  control,
-                  name: `components.${value}`,
-                }}
-                placeholder="Write in your own details in the blank space on the cards provided—short sentences or bullet points will do."
-              />
-            </TabsContent>
-          ))}
-        </Tabs>
-      </CardContent>
-      <CardFooter className="flex justify-between gap-4">
-        <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
-          Back
-        </Button>
-        <Button className="w-full" onClick={onContinueButtonClick}>
-          Continue
-        </Button>
-      </CardFooter>
-    </Card>
-  </div>
-);
+export const ComponentsForm = ({ onBackButtonClick, onSubmit }: ComponentsFormProps) => {
+  const form = useForm<ComponentsFormValues>({
+    defaultValues: getFormData(COMPONENTS_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
+  });
+
+  return (
+    <Form {...form}>
+      <form
+        className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <Card>
+          <CardHeader>
+            <CardTitle>Components of your story</CardTitle>
+            <CardDescription>Find the components of your great story.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-6">
+            <Tabs className="w-[400px]" defaultValue="once-upon-a-time">
+              <ScrollArea>
+                <TabsList>
+                  <TabsTrigger value="once-upon-a-time">
+                    &quot;Once upon a time...&quot;
+                  </TabsTrigger>
+                  <TabsTrigger value="a-world-view">A world view</TabsTrigger>
+                  <TabsTrigger value="great-characters">Great characters</TabsTrigger>
+                  <TabsTrigger value="challenging-situations">Challenging situations</TabsTrigger>
+                  <TabsTrigger value="conflict">Conflict</TabsTrigger>
+                  <TabsTrigger value="drama">Drama</TabsTrigger>
+                  <TabsTrigger value="lessons-learned">Lessons learned</TabsTrigger>
+                  <TabsTrigger value="new-possibility">New possibility</TabsTrigger>
+                  <TabsTrigger value="happily-ever-after">
+                    &quot;Happily ever after...&quot;
+                  </TabsTrigger>
+                </TabsList>
+                <ScrollBar className="hidden" orientation="horizontal" />
+              </ScrollArea>
+              {components.map(({ description, value }) => (
+                <TabsContent key={value} value={value}>
+                  <p className="mb-4 text-sm text-muted-foreground">{description}</p>
+                  <TextareaController
+                    className="max-h-[200px] min-h-[200px] flex-1 p-4 md:max-h-[300px] md:min-h-[300px]"
+                    controllerProps={{
+                      name: value,
+                      control: form.control,
+                    }}
+                    placeholder="Write in your own details in the blank space on the cards provided—short sentences or bullet points will do."
+                  />
+                </TabsContent>
+              ))}
+            </Tabs>
+          </CardContent>
+          <CardFooter className="flex justify-between gap-4">
+            <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
+              Back
+            </Button>
+            <Button className="w-full" type="submit">
+              Continue
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
+    </Form>
+  );
+};
