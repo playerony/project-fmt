@@ -27,6 +27,8 @@ export type ComponentsFormValues = Record<ComponentType, string>;
 
 interface ComponentsFormProps {
   control: Control<{ components?: ComponentsFormValues }>;
+  onBackButtonClick: () => void;
+  onContinueButtonClick: () => void;
 }
 
 const components: { description: string; value: ComponentType }[] = [
@@ -75,7 +77,11 @@ const components: { description: string; value: ComponentType }[] = [
   },
 ];
 
-export const ComponentsForm = ({ control }: ComponentsFormProps) => (
+export const ComponentsForm = ({
+  control,
+  onBackButtonClick,
+  onContinueButtonClick,
+}: ComponentsFormProps) => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
     <Card>
       <CardHeader>
@@ -115,8 +121,13 @@ export const ComponentsForm = ({ control }: ComponentsFormProps) => (
           ))}
         </Tabs>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">Continue</Button>
+      <CardFooter className="flex justify-between gap-4">
+        <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
+          Back
+        </Button>
+        <Button className="w-full" onClick={onContinueButtonClick}>
+          Continue
+        </Button>
       </CardFooter>
     </Card>
   </div>

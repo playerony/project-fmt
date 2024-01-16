@@ -17,7 +17,7 @@ interface FormValues {
 }
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(4);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -46,8 +46,8 @@ const Home = () => {
     },
   });
 
-  const handleGeneralFormContinueButtonClick = () => {
-    setCurrentStep(2);
+  const handleChangeStepClick = (step: number) => () => {
+    setCurrentStep(step);
   };
 
   const selectedArchetype = form.watch('archetype');
@@ -55,15 +55,29 @@ const Home = () => {
   return (
     <Form {...form}>
       {currentStep === 1 ? (
-        <GeneralForm
+        <GeneralForm control={form.control} onContinueButtonClick={handleChangeStepClick(2)} />
+      ) : null}
+      {currentStep === 2 ? (
+        <StoryForm
           control={form.control}
-          onContinueButtonClick={handleGeneralFormContinueButtonClick}
+          onBackButtonClick={handleChangeStepClick(1)}
+          onContinueButtonClick={handleChangeStepClick(3)}
         />
       ) : null}
-      {currentStep === 2 ? <StoryForm control={form.control} /> : null}
-      {currentStep === 3 ? <ComponentsForm control={form.control} /> : null}
+      {currentStep === 3 ? (
+        <ComponentsForm
+          control={form.control}
+          onBackButtonClick={handleChangeStepClick(2)}
+          onContinueButtonClick={handleChangeStepClick(4)}
+        />
+      ) : null}
       {currentStep === 4 ? (
-        <ArchetypeForm control={form.control} selectedArchetype={selectedArchetype} />
+        <ArchetypeForm
+          control={form.control}
+          selectedArchetype={selectedArchetype}
+          onBackButtonClick={handleChangeStepClick(3)}
+          onContinueButtonClick={handleChangeStepClick(4)}
+        />
       ) : null}
     </Form>
   );

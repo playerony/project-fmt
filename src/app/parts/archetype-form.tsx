@@ -1,4 +1,3 @@
-import { Icons } from '@/components/icons';
 import { RadioGroupController } from '@/components/radio-group-controller';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,10 +13,17 @@ import { Control } from 'react-hook-form';
 
 interface StoryFormProps {
   control: Control<{ archetype?: string }>;
+  onBackButtonClick: () => void;
+  onContinueButtonClick: () => void;
   selectedArchetype: string | undefined;
 }
 
-export const ArchetypeForm = ({ control, selectedArchetype }: StoryFormProps) => (
+export const ArchetypeForm = ({
+  control,
+  onBackButtonClick,
+  onContinueButtonClick,
+  selectedArchetype,
+}: StoryFormProps) => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
     <Card>
       <CardHeader>
@@ -39,37 +45,31 @@ export const ArchetypeForm = ({ control, selectedArchetype }: StoryFormProps) =>
               label: 'Coming of age',
               value: 'coming-of-age',
               itemClassName: 'peer sr-only',
-              icon: <Icons.comingOfAgeArchetype className="h-[75px] w-[75px]" />,
             },
             {
               label: 'Overcoming Obstacles',
               value: 'overcoming-obstacles',
               itemClassName: 'peer sr-only',
-              icon: <Icons.overcomingObstaclesArchetype className="h-[75px] w-[75px]" />,
             },
             {
               label: 'Constant Evolution',
               value: 'constant-evolution',
               itemClassName: 'peer sr-only',
-              icon: <Icons.constantEvolutionArchetype className="h-[75px] w-[75px]" />,
             },
             {
               label: 'True As It Ever Was',
               value: 'true-as-it-ever-was',
               itemClassName: 'peer sr-only',
-              icon: <Icons.trueAsItEverWasArchetype className="h-[75px] w-[75px]" />,
             },
             {
               label: 'Rebirth',
               value: 'rebirth',
-              icon: <Icons.rebirthArchetype className="h-[75px] w-[75px]" />,
               itemClassName: 'peer sr-only',
             },
             {
               label: 'Quest',
               value: 'quest',
               itemClassName: 'peer sr-only',
-              icon: <Icons.questArchetype className="h-[75px] w-[75px]" />,
             },
           ]}
           renderOptionChildren={(option) => (
@@ -77,7 +77,6 @@ export const ArchetypeForm = ({ control, selectedArchetype }: StoryFormProps) =>
               className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
               htmlFor={option.value}
             >
-              {option.icon}
               {option.label}
             </Label>
           )}
@@ -129,8 +128,13 @@ export const ArchetypeForm = ({ control, selectedArchetype }: StoryFormProps) =>
           </p>
         ) : null}
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">Continue</Button>
+      <CardFooter className="flex justify-between gap-4">
+        <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
+          Back
+        </Button>
+        <Button className="w-full" onClick={onContinueButtonClick}>
+          Continue
+        </Button>
       </CardFooter>
     </Card>
   </div>

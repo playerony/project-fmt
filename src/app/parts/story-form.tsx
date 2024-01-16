@@ -19,9 +19,15 @@ export interface StoryFormValues {
 
 interface StoryFormProps {
   control: Control<{ story?: StoryFormValues }>;
+  onBackButtonClick: () => void;
+  onContinueButtonClick: () => void;
 }
 
-export const StoryForm = ({ control }: StoryFormProps) => (
+export const StoryForm = ({
+  control,
+  onBackButtonClick,
+  onContinueButtonClick,
+}: StoryFormProps) => (
   <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
     <Card>
       <CardHeader>
@@ -78,8 +84,13 @@ export const StoryForm = ({ control }: StoryFormProps) => (
           placeholder="What’s your story about, specifically? Get these early outlines on paper."
         />
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">Continue</Button>
+      <CardFooter className="flex justify-between gap-4">
+        <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
+          Back
+        </Button>
+        <Button className="w-full" onClick={onContinueButtonClick}>
+          Continue
+        </Button>
       </CardFooter>
     </Card>
   </div>
