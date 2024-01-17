@@ -11,11 +11,12 @@ import { useState } from 'react';
 import { ArchetypeForm, ArchetypeFormValues } from './parts/archetype-form';
 import { ComponentsForm, ComponentsFormValues } from './parts/components-form';
 import { GeneralForm, GeneralFormValues } from './parts/general-form';
+import { OrderForm, OrderFormValues } from './parts/order-form';
 import { StoryForm, StoryFormValues } from './parts/story-form';
 import { setFormData } from './utils';
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(5);
 
   const handleBackButtonClick = () => setCurrentStep((prevStep) => prevStep - 1);
 
@@ -35,8 +36,14 @@ const Home = () => {
   };
 
   const handleArchetypeFormSubmit = (data: ArchetypeFormValues) => {
-    setCurrentStep(4);
+    setCurrentStep(5);
     setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
+  };
+
+  const handleOrderFormSubmit = (data: OrderFormValues) => {
+    setCurrentStep(4);
+    console.log(data);
+    // setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
   };
 
   return (
@@ -56,6 +63,9 @@ const Home = () => {
           onBackButtonClick={handleBackButtonClick}
           onSubmit={handleArchetypeFormSubmit}
         />
+      ) : null}
+      {currentStep === 5 ? (
+        <OrderForm onBackButtonClick={handleBackButtonClick} onSubmit={handleOrderFormSubmit} />
       ) : null}
     </>
   );
