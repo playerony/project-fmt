@@ -14,9 +14,18 @@ import { ARCHETYPE_FORM_VALUES_KEY } from '@/constants';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
+import { ArchetypeDescription } from './archetype-description';
+
+export type Archetype =
+  | 'coming-of-age'
+  | 'overcoming-obstacles'
+  | 'constant-evolution'
+  | 'true-as-it-ever-was'
+  | 'rebirth'
+  | 'quest';
 
 export interface ArchetypeFormValues {
-  archetype: string;
+  archetype: Archetype;
 }
 
 const DEFAULT_FORM_VALUES: ArchetypeFormValues = {
@@ -97,52 +106,7 @@ export const ArchetypeForm = ({ onBackButtonClick, onSubmit }: ArchetypeFormProp
                 </Label>
               )}
             />
-            {selectedArchetype === 'coming-of-age' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                After years of learning and growing, you’ve reached a milestone. You know who you
-                are. You are strong, experienced, and confident. You’re ready to take on whatever
-                comes next. <strong>Use this archetype to show experience and strength.</strong>
-              </p>
-            ) : null}
-            {selectedArchetype === 'overcoming-obstacles' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                You hit a roadblock and almost failed. It was a struggle. You challenged your
-                assumptions, made tough decisions, fought hard… and won.{' '}
-                <strong>Use this archetype to demonstrate resilience.</strong>
-              </p>
-            ) : null}
-            {selectedArchetype === 'constant-evolution' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                You never rest. Over and over, you’ve evolved to handle whatever comes your way. You
-                keep moving, adapting to the world around you and maybe even anticipating its
-                change. <strong>Use this archetype to prove adaptability.</strong>
-              </p>
-            ) : null}
-            {selectedArchetype === 'true-as-it-ever-was' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                Your purpose and values have endured throughout the years. The world has evolved and
-                you’ve changed with it, but your core beliefs have remained intact. They guide
-                everything you do.{' '}
-                <strong>
-                  Use this archetype to communicate steadiness or reinforce the audience’s trust.
-                </strong>
-              </p>
-            ) : null}
-            {selectedArchetype === 'rebirth' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                Over time, you’ve accumulated a wealth of experience and knowledge. Today, you’re
-                harnessing that to start a whole new chapter, and become an even better version of
-                yourself. <strong>Use this archetype to explain a new direction.</strong>
-              </p>
-            ) : null}
-            {selectedArchetype === 'quest' ? (
-              <p className="mb-4 text-sm text-muted-foreground">
-                You’ve always had a clear objective and you’ve pursued it relentlessly. Over time,
-                you’ve summoned your talent and passion to turn your vision into reality. Through
-                twists and turns, you’ve maintained your focus, and you will never let it go.{' '}
-                <strong>Use these archetype to recommit or demonstrate dedication.</strong>
-              </p>
-            ) : null}
+            <ArchetypeDescription archetype={selectedArchetype} />
           </CardContent>
           <CardFooter className="flex justify-between gap-4">
             <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
