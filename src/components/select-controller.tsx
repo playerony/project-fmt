@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { FieldValues, UseControllerProps } from 'react-hook-form';
 
 import { FormControl, FormDescription, FormField, FormItem, FormLabel } from './ui/form';
 
@@ -16,23 +15,23 @@ interface Option {
   value: string;
 }
 
-interface SelectControllerProps<TFieldValues extends FieldValues = FieldValues> {
-  controllerProps: Omit<UseControllerProps<TFieldValues>, 'render'>;
+interface SelectControllerProps {
   description?: string;
   label: string;
+  name: string;
   options: Option[];
   placeholder?: string;
 }
 
-export const SelectController = <TFieldValues extends FieldValues = FieldValues>({
-  controllerProps,
+export const SelectController = ({
   description,
   label,
+  name,
   options,
   placeholder,
-}: SelectControllerProps<TFieldValues>) => (
+}: SelectControllerProps) => (
   <FormField
-    {...controllerProps}
+    name={name}
     render={({ field }) => (
       <FormItem>
         <FormLabel>{label}</FormLabel>

@@ -1,25 +1,23 @@
-import { FieldValues, UseControllerProps } from 'react-hook-form';
-
 import { FormDescription, FormField, FormItem, FormLabel } from './ui/form';
 import { Textarea } from './ui/textarea';
 
-interface TextareaControllerProps<TFieldValues extends FieldValues = FieldValues> {
+interface TextareaControllerProps {
   className?: string;
-  controllerProps: Omit<UseControllerProps<TFieldValues>, 'render'>;
   description?: string;
   label?: string;
+  name: string;
   placeholder?: string;
 }
 
-export const TextareaController = <TFieldValues extends FieldValues = FieldValues>({
+export const TextareaController = ({
   className,
-  controllerProps,
   description,
   label,
+  name,
   placeholder,
-}: TextareaControllerProps<TFieldValues>) => (
+}: TextareaControllerProps) => (
   <FormField
-    {...controllerProps}
+    name={name}
     render={({ field }) => (
       <FormItem>
         {label ? <FormLabel>{label}</FormLabel> : null}

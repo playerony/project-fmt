@@ -16,16 +16,8 @@ import { useForm } from 'react-hook-form';
 import { getFormData } from '../utils';
 import { ArchetypeDescription } from './archetype-description';
 
-export type Archetype =
-  | 'coming-of-age'
-  | 'overcoming-obstacles'
-  | 'constant-evolution'
-  | 'true-as-it-ever-was'
-  | 'rebirth'
-  | 'quest';
-
 export interface ArchetypeFormValues {
-  archetype: Archetype;
+  archetype: StoryArchetype;
 }
 
 const DEFAULT_FORM_VALUES: ArchetypeFormValues = {
@@ -61,10 +53,7 @@ export const ArchetypeForm = ({ onBackButtonClick, onSubmit }: ArchetypeFormProp
           <CardContent className="grid gap-6">
             <RadioGroupController
               className="grid grid-cols-2 gap-4"
-              controllerProps={{
-                control: form.control,
-                name: 'archetype',
-              }}
+              name="archetype"
               options={[
                 {
                   label: 'Coming of age',

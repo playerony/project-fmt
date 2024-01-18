@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { FieldValues, UseControllerProps } from 'react-hook-form';
 
 import { FormControl, FormField, FormItem, FormLabel } from './ui/form';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
@@ -10,21 +9,21 @@ interface Option {
   value: string;
 }
 
-interface RadioGroupControllerProps<TFieldValues extends FieldValues = FieldValues> {
+interface RadioGroupControllerProps {
   className?: string;
-  controllerProps: Omit<UseControllerProps<TFieldValues>, 'render'>;
+  name: string;
   options: Option[];
   renderOptionChildren: (option: Option) => ReactNode;
 }
 
-export const RadioGroupController = <TFieldValues extends FieldValues = FieldValues>({
+export const RadioGroupController = ({
   className,
-  controllerProps,
+  name,
   options,
   renderOptionChildren,
-}: RadioGroupControllerProps<TFieldValues>) => (
+}: RadioGroupControllerProps) => (
   <FormField
-    {...controllerProps}
+    name={name}
     render={({ field }) => (
       <FormItem>
         <RadioGroup className={className} defaultValue={field.value} onValueChange={field.onChange}>

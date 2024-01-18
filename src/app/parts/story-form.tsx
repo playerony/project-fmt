@@ -53,10 +53,7 @@ export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
           <CardContent className="grid gap-6">
             <RadioGroupController
               className="grid grid-cols-2 gap-4"
-              controllerProps={{
-                control: form.control,
-                name: 'storyType',
-              }}
+              name="storyType"
               options={[
                 {
                   label: 'The story of me',
@@ -90,10 +87,7 @@ export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
             />
             <TextareaController
               className="max-h-[200px] min-h-[200px] flex-1 p-4 md:max-h-[300px] md:min-h-[300px]"
-              controllerProps={{
-                control: form.control,
-                name: 'storyBriefDescription',
-              }}
+              name="storyBriefDescription"
               placeholder="What’s your story about, specifically? Get these early outlines on paper."
             />
           </CardContent>

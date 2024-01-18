@@ -1,7 +1,5 @@
-import { Archetype } from './archetype-form';
-
 interface ArchetypeDescriptionProps {
-  archetype: Archetype;
+  archetype: StoryArchetype;
 }
 
 export const ArchetypeDescription = ({ archetype }: ArchetypeDescriptionProps) => (
