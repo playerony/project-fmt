@@ -9,13 +9,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
-import { STORY_FORM_VALUES_KEY } from '@/constants';
+import { COMPONENTS_DEFINITION, STORY_FORM_VALUES_KEY } from '@/constants';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
 import { ArchetypeDescription } from './archetype-description';
-import { Archetype } from './archetype-form';
 
 export interface OrderFormValues {
   storyBriefDescription: string;
@@ -33,14 +32,7 @@ interface OrderFormProps {
 }
 
 export const OrderForm = ({ onBackButtonClick, onSubmit }: OrderFormProps) => {
-  const [components, setComponents] = useState<Archetype[]>([
-    'quest',
-    'rebirth',
-    'coming-of-age',
-    'overcoming-obstacles',
-    'constant-evolution',
-    'true-as-it-ever-was',
-  ]);
+  const [components, setComponents] = useState(COMPONENTS_DEFINITION);
 
   const form = useForm<OrderFormValues>({
     defaultValues: getFormData(STORY_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
@@ -59,15 +51,22 @@ export const OrderForm = ({ onBackButtonClick, onSubmit }: OrderFormProps) => {
               Think about entire story. How would you like to describe it?
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-6">
+          <CardContent className="grid gap-2">
             <h4 className="mb-1 text-lg font-semibold tracking-tight">
               Selected archetype: &quot;Quest&quot;
             </h4>
             <ArchetypeDescription archetype="quest" />
             <GenericSortableList
               dataSource={components}
-              getItemKey={(item) => item}
-              renderListItem={({ dragHandleProps, item }) => <div {...dragHandleProps}>{item}</div>}
+              getItemKey={(item) => item.description}
+              renderListItem={({ dragHandleProps, item }) => (
+                <div
+                  className="mb-1 rounded-md border-2 border-muted bg-popover p-1 text-center hover:bg-accent hover:text-accent-foreground"
+                  {...dragHandleProps}
+                >
+                  {item.label}
+                </div>
+              )}
               onDataSourceUpdate={setComponents}
             />
           </CardContent>

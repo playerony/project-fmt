@@ -53,12 +53,9 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
           <CardContent className="grid gap-6">
             <div className="grid gap-2">
               <SelectController
-                controllerProps={{
-                  control: form.control,
-                  name: 'language',
-                }}
                 description="What language should your story be written in?"
                 label="Language"
+                name="language"
                 options={[
                   { label: 'English', value: 'english' },
                   { label: 'Polish', value: 'polish' },
@@ -68,12 +65,9 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
             </div>
             <div className="grid gap-2">
               <SelectController
-                controllerProps={{
-                  control: form.control,
-                  name: 'languageComplexity',
-                }}
                 description="Specify what level of language you want to use"
                 label="Language complexity"
+                name="languageComplexity"
                 options={[
                   { label: 'A1', value: 'a1' },
                   { label: 'A2', value: 'a2' },
@@ -87,12 +81,9 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
             </div>
             <div className="grid gap-2">
               <SelectController
-                controllerProps={{
-                  control: form.control,
-                  name: 'pointOfView',
-                }}
                 description="Who is telling a story?"
                 label="Point of view"
+                name="pointOfView"
                 options={[
                   { label: 'First person', value: 'first' },
                   { label: 'Second person', value: 'second' },
@@ -103,12 +94,9 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
             </div>
             <div className="grid gap-2">
               <SelectController
-                controllerProps={{
-                  control: form.control,
-                  name: 'lengthOfStory',
-                }}
                 description="How long and detailed your story should be?"
                 label="Length of your story"
+                name="lengthOfStory"
                 options={[
                   { label: 'Short (just going to the point)', value: 'short' },
                   { label: 'Medium (with not so many details)', value: 'medium' },
