@@ -10,11 +10,12 @@ import {
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
-import { ARCHETYPE_FORM_VALUES_KEY } from '@/constants';
+import { ARCHETYPE_FORM_VALUES_KEY, STORY_ARCHETYPE_DEFINITION } from '@/constants';
+import { isObject } from '@/utils';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
-import { ArchetypeDescription } from './archetype-description';
 
 export interface ArchetypeFormValues {
   archetype: StoryArchetype;
@@ -29,12 +30,32 @@ interface ArchetypeFormProps {
   onSubmit: (data: ArchetypeFormValues) => void;
 }
 
+const getDefaultFormValues = () => {
+  const defaultValuesFromLocalStorage = getFormData(ARCHETYPE_FORM_VALUES_KEY);
+
+  if (!isObject(defaultValuesFromLocalStorage)) {
+    return DEFAULT_FORM_VALUES;
+  }
+
+  return {
+    ...DEFAULT_FORM_VALUES,
+    ...defaultValuesFromLocalStorage,
+  };
+};
+
 export const ArchetypeForm = ({ onBackButtonClick, onSubmit }: ArchetypeFormProps) => {
   const form = useForm<ArchetypeFormValues>({
-    defaultValues: getFormData(ARCHETYPE_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
+    defaultValues: getDefaultFormValues(),
   });
 
-  const selectedArchetype = form.watch('archetype');
+  const archetypeFormValue = form.watch('archetype');
+  const selectedArchetype = useMemo(
+    () =>
+      STORY_ARCHETYPE_DEFINITION.find(
+        (archetypeDefinition) => archetypeDefinition.value === archetypeFormValue,
+      ) || STORY_ARCHETYPE_DEFINITION[0],
+    [archetypeFormValue],
+  );
 
   return (
     <Form {...form}>
@@ -54,38 +75,10 @@ export const ArchetypeForm = ({ onBackButtonClick, onSubmit }: ArchetypeFormProp
             <RadioGroupController
               className="grid grid-cols-2 gap-4"
               name="archetype"
-              options={[
-                {
-                  label: 'Coming of age',
-                  value: 'coming-of-age',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'Overcoming Obstacles',
-                  value: 'overcoming-obstacles',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'Constant Evolution',
-                  value: 'constant-evolution',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'True As It Ever Was',
-                  value: 'true-as-it-ever-was',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'Rebirth',
-                  value: 'rebirth',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'Quest',
-                  value: 'quest',
-                  itemClassName: 'peer sr-only',
-                },
-              ]}
+              options={STORY_ARCHETYPE_DEFINITION.map((archetype) => ({
+                ...archetype,
+                itemClassName: 'peer sr-only',
+              }))}
               renderOptionChildren={(option) => (
                 <Label
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -95,7 +88,12 @@ export const ArchetypeForm = ({ onBackButtonClick, onSubmit }: ArchetypeFormProp
                 </Label>
               )}
             />
-            <ArchetypeDescription archetype={selectedArchetype} />
+            <h4 className="mb-1 text-lg font-semibold tracking-tight">
+              Selected archetype: &quot;{selectedArchetype.label}&quot;
+            </h4>
+            <p className="mb-4 text-sm text-muted-foreground">
+              {selectedArchetype.description} <strong>{selectedArchetype.summary}</strong>
+            </p>
           </CardContent>
           <CardFooter className="flex justify-between gap-4">
             <Button className="w-full" variant="outline" onClick={onBackButtonClick}>

@@ -8,78 +8,98 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Form } from '@/components/ui/form';
-import { COMPONENTS_DEFINITION, STORY_FORM_VALUES_KEY } from '@/constants';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import {
+  ARCHETYPE_FORM_VALUES_KEY,
+  COMPONENTS_DEFINITION,
+  COMPONENTS_FORM_VALUES_KEY,
+  STORY_ARCHETYPE_DEFINITION,
+} from '@/constants';
+import { isObject } from '@/utils';
+import { useMemo, useState } from 'react';
 
 import { getFormData } from '../utils';
-import { ArchetypeDescription } from './archetype-description';
 
-export interface OrderFormValues {
-  storyBriefDescription: string;
-  storyType: string;
-}
-
-const DEFAULT_FORM_VALUES: OrderFormValues = {
-  storyBriefDescription: '',
-  storyType: 'the-story-of-me',
-};
+export interface OrderFormValues {}
 
 interface OrderFormProps {
   onBackButtonClick: () => void;
-  onSubmit: (data: OrderFormValues) => void;
+  onFinish: (data: OrderFormValues) => void;
 }
 
-export const OrderForm = ({ onBackButtonClick, onSubmit }: OrderFormProps) => {
-  const [components, setComponents] = useState(COMPONENTS_DEFINITION);
+const getDefaultComponents = () => {
+  const defaultValuesFromLocalStorage: Record<string, string> = getFormData(
+    COMPONENTS_FORM_VALUES_KEY,
+  );
 
-  const form = useForm<OrderFormValues>({
-    defaultValues: getFormData(STORY_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
-  });
+  if (!isObject(defaultValuesFromLocalStorage)) {
+    return COMPONENTS_DEFINITION;
+  }
+
+  return COMPONENTS_DEFINITION.filter(
+    (component) => !!defaultValuesFromLocalStorage[component.value],
+  );
+};
+
+const getSelectedArchetype = () => {
+  const defaultValuesFromLocalStorage: Record<string, string> =
+    getFormData(ARCHETYPE_FORM_VALUES_KEY);
 
   return (
-    <Form {...form}>
-      <form
-        className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <Card>
-          <CardHeader>
-            <CardTitle>Match the created components to the archetype</CardTitle>
-            <CardDescription>
-              Think about entire story. How would you like to describe it?
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-2">
-            <h4 className="mb-1 text-lg font-semibold tracking-tight">
-              Selected archetype: &quot;Quest&quot;
-            </h4>
-            <ArchetypeDescription archetype="quest" />
-            <GenericSortableList
-              dataSource={components}
-              getItemKey={(item) => item.description}
-              renderListItem={({ dragHandleProps, item }) => (
-                <div
-                  className="mb-1 rounded-md border-2 border-muted bg-popover p-1 text-center hover:bg-accent hover:text-accent-foreground"
-                  {...dragHandleProps}
-                >
-                  {item.label}
-                </div>
-              )}
-              onDataSourceUpdate={setComponents}
-            />
-          </CardContent>
-          <CardFooter className="flex justify-between gap-4">
-            <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
-              Back
-            </Button>
-            <Button className="w-full" type="submit">
-              Continue
-            </Button>
-          </CardFooter>
-        </Card>
-      </form>
-    </Form>
+    STORY_ARCHETYPE_DEFINITION.find(
+      (archetypeDefinition) =>
+        archetypeDefinition.value === defaultValuesFromLocalStorage.archetype,
+    ) || STORY_ARCHETYPE_DEFINITION[0]
+  );
+};
+
+export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
+  const [components, setComponents] = useState(getDefaultComponents());
+  const selectedArchetype = useMemo(getSelectedArchetype, []);
+
+  const handleContinueButtonClick = () => {
+    // TODO - fill up with proper stuff later
+    onFinish({});
+  };
+
+  return (
+    <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
+      <Card>
+        <CardHeader>
+          <CardTitle>Match the created components to the archetype</CardTitle>
+          <CardDescription>
+            Think about entire story. How would you like to describe it?
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-2">
+          <h4 className="mb-1 text-lg font-semibold tracking-tight">
+            Selected archetype: &quot;{selectedArchetype.label}&quot;
+          </h4>
+          <p className="mb-4 text-sm text-muted-foreground">
+            {selectedArchetype.description} <strong>{selectedArchetype.summary}</strong>
+          </p>
+          <GenericSortableList
+            dataSource={components}
+            getItemKey={(item) => item.description}
+            renderListItem={({ dragHandleProps, item }) => (
+              <div
+                className="mb-1 rounded-md border-2 border-muted bg-popover p-1 text-center hover:bg-accent hover:text-accent-foreground"
+                {...dragHandleProps}
+              >
+                {item.label}
+              </div>
+            )}
+            onDataSourceUpdate={setComponents}
+          />
+        </CardContent>
+        <CardFooter className="flex justify-between gap-4">
+          <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
+            Back
+          </Button>
+          <Button className="w-full" type="button" onClick={handleContinueButtonClick}>
+            Continue
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };

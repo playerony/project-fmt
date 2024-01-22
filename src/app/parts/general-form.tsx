@@ -11,7 +11,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
-import { GENERAL_FORM_VALUES_KEY } from '@/constants';
+import {
+  GENERAL_FORM_VALUES_KEY,
+  STORY_LANGUAGE_COMPLEXITY_DEFINITION,
+  STORY_LANGUAGE_DEFINITION,
+  STORY_LENGTH_DEFINITION,
+  STORY_POINT_OF_VIEW_DEFINITION,
+} from '@/constants';
+import { isObject } from '@/utils';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
@@ -34,9 +41,22 @@ interface GeneralFormProps {
   onSubmit: (data: GeneralFormValues) => void;
 }
 
+const getDefaultFormValues = () => {
+  const defaultValuesFromLocalStorage = getFormData(GENERAL_FORM_VALUES_KEY);
+
+  if (!isObject(defaultValuesFromLocalStorage)) {
+    return DEFAULT_FORM_VALUES;
+  }
+
+  return {
+    ...DEFAULT_FORM_VALUES,
+    ...defaultValuesFromLocalStorage,
+  };
+};
+
 export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
   const form = useForm<GeneralFormValues>({
-    defaultValues: getFormData(GENERAL_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
+    defaultValues: getDefaultFormValues(),
   });
 
   return (
@@ -56,10 +76,7 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
                 description="What language should your story be written in?"
                 label="Language"
                 name="language"
-                options={[
-                  { label: 'English', value: 'english' },
-                  { label: 'Polish', value: 'polish' },
-                ]}
+                options={STORY_LANGUAGE_DEFINITION}
                 placeholder="Select..."
               />
             </div>
@@ -68,14 +85,7 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
                 description="Specify what level of language you want to use"
                 label="Language complexity"
                 name="languageComplexity"
-                options={[
-                  { label: 'A1', value: 'a1' },
-                  { label: 'A2', value: 'a2' },
-                  { label: 'B1', value: 'b1' },
-                  { label: 'B2', value: 'b2' },
-                  { label: 'C1', value: 'c1' },
-                  { label: 'C2', value: 'c2' },
-                ]}
+                options={STORY_LANGUAGE_COMPLEXITY_DEFINITION}
                 placeholder="Select..."
               />
             </div>
@@ -84,11 +94,7 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
                 description="Who is telling a story?"
                 label="Point of view"
                 name="pointOfView"
-                options={[
-                  { label: 'First person', value: 'first' },
-                  { label: 'Second person', value: 'second' },
-                  { label: 'Third person', value: 'third' },
-                ]}
+                options={STORY_POINT_OF_VIEW_DEFINITION}
                 placeholder="Select..."
               />
             </div>
@@ -97,11 +103,7 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
                 description="How long and detailed your story should be?"
                 label="Length of your story"
                 name="lengthOfStory"
-                options={[
-                  { label: 'Short (just going to the point)', value: 'short' },
-                  { label: 'Medium (with not so many details)', value: 'medium' },
-                  { label: 'Long (with a lot of details)', value: 'long' },
-                ]}
+                options={STORY_LENGTH_DEFINITION}
                 placeholder="Select..."
               />
             </div>
