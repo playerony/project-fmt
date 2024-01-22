@@ -12,6 +12,7 @@ import {
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { STORY_FORM_VALUES_KEY } from '@/constants';
+import { isObject } from '@/utils';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
@@ -31,9 +32,22 @@ interface StoryFormProps {
   onSubmit: (data: StoryFormValues) => void;
 }
 
+const getDefaultFormValues = () => {
+  const defaultValuesFromLocalStorage = getFormData(STORY_FORM_VALUES_KEY);
+
+  if (!isObject(defaultValuesFromLocalStorage)) {
+    return DEFAULT_FORM_VALUES;
+  }
+
+  return {
+    ...DEFAULT_FORM_VALUES,
+    ...defaultValuesFromLocalStorage,
+  };
+};
+
 export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
   const form = useForm<StoryFormValues>({
-    defaultValues: getFormData(STORY_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
+    defaultValues: getDefaultFormValues(),
   });
 
   return (

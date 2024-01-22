@@ -16,7 +16,7 @@ import { StoryForm, StoryFormValues } from './parts/story-form';
 import { setFormData } from './utils';
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(5);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleBackButtonClick = () => setCurrentStep((prevStep) => prevStep - 1);
 
@@ -40,7 +40,7 @@ const Home = () => {
     setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
   };
 
-  const handleOrderFormSubmit = (data: OrderFormValues) => {
+  const handleFinish = (data: OrderFormValues) => {
     setCurrentStep(4);
     console.log(data);
     // setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
@@ -65,7 +65,7 @@ const Home = () => {
         />
       ) : null}
       {currentStep === 5 ? (
-        <OrderForm onBackButtonClick={handleBackButtonClick} onSubmit={handleOrderFormSubmit} />
+        <OrderForm onBackButtonClick={handleBackButtonClick} onFinish={handleFinish} />
       ) : null}
     </>
   );

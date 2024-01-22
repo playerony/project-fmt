@@ -12,6 +12,7 @@ import { Form } from '@/components/ui/form';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { COMPONENTS_DEFINITION, COMPONENTS_FORM_VALUES_KEY } from '@/constants';
+import { isObject } from '@/utils';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
@@ -35,9 +36,22 @@ interface ComponentsFormProps {
   onSubmit: (data: ComponentsFormValues) => void;
 }
 
+const getDefaultFormValues = () => {
+  const defaultValuesFromLocalStorage = getFormData(COMPONENTS_FORM_VALUES_KEY);
+
+  if (!isObject(defaultValuesFromLocalStorage)) {
+    return DEFAULT_FORM_VALUES;
+  }
+
+  return {
+    ...DEFAULT_FORM_VALUES,
+    ...defaultValuesFromLocalStorage,
+  };
+};
+
 export const ComponentsForm = ({ onBackButtonClick, onSubmit }: ComponentsFormProps) => {
   const form = useForm<ComponentsFormValues>({
-    defaultValues: getFormData(COMPONENTS_FORM_VALUES_KEY) ?? DEFAULT_FORM_VALUES,
+    defaultValues: getDefaultFormValues(),
   });
 
   return (
