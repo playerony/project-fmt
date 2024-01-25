@@ -3,11 +3,13 @@ export const STORY_FORM_VALUES_KEY = 'storyFormValues';
 export const COMPONENTS_FORM_VALUES_KEY = 'componentsFormValues';
 export const ARCHETYPE_FORM_VALUES_KEY = 'archetypeFormValues';
 
-export const COMPONENTS_DEFINITION: {
+export interface ComponentDefinition {
   description: string;
   label: string;
   value: StoryComponent;
-}[] = [
+}
+
+export const COMPONENTS_DEFINITION: ComponentDefinition[] = [
   {
     label: '"Once upon a time..."',
     value: 'once-upon-a-time',
