@@ -41,7 +41,7 @@ const getInitialStep = () => {
 };
 
 const Home = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(-1);
 
   useEffect(() => {
     setCurrentStep(getInitialStep());
@@ -73,6 +73,10 @@ const Home = () => {
     setCurrentStep(5);
     console.log(data);
   };
+
+  if (currentStep === -1) {
+    return null;
+  }
 
   return (
     <>
