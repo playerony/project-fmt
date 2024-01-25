@@ -12,6 +12,7 @@ import {
   ARCHETYPE_FORM_VALUES_KEY,
   COMPONENTS_DEFINITION,
   COMPONENTS_FORM_VALUES_KEY,
+  ComponentDefinition,
   STORY_ARCHETYPE_DEFINITION,
 } from '@/constants';
 import { isObject } from '@/utils';
@@ -19,7 +20,9 @@ import { useMemo, useState } from 'react';
 
 import { getFormData } from '../utils';
 
-export interface OrderFormValues {}
+export interface OrderFormValues {
+  components: ComponentDefinition[];
+}
 
 interface OrderFormProps {
   onBackButtonClick: () => void;
@@ -56,10 +59,7 @@ export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
   const [components, setComponents] = useState(getDefaultComponents());
   const selectedArchetype = useMemo(getSelectedArchetype, []);
 
-  const handleContinueButtonClick = () => {
-    // TODO - fill up with proper stuff later
-    onFinish({});
-  };
+  const handleContinueButtonClick = () => onFinish({ components });
 
   return (
     <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
