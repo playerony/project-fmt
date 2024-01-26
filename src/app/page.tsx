@@ -4,7 +4,7 @@ import {
   ARCHETYPE_FORM_VALUES_KEY,
   COMPONENTS_FORM_VALUES_KEY,
   GENERAL_FORM_VALUES_KEY,
-  STORY_FORM_VALUES_KEY,
+  STORY_TYPE_FORM_VALUES_KEY,
 } from '@/constants';
 import { useEffect, useState } from 'react';
 
@@ -12,28 +12,45 @@ import { ArchetypeForm, ArchetypeFormValues } from './parts/archetype-form';
 import { ComponentsForm, ComponentsFormValues } from './parts/components-form';
 import { GeneralForm, GeneralFormValues } from './parts/general-form';
 import { OrderForm, OrderFormValues } from './parts/order-form';
-import { StoryForm, StoryFormValues } from './parts/story-form';
-import { getFormData, setFormData } from './utils';
+import { StoryTypeForm, StoryTypeFormValues } from './parts/story-type-form';
+import { generatePrompt, getFormData, setFormData } from './utils';
+
+const handleFinish = (data: OrderFormValues) => {
+  const generalFormValues = getFormData(GENERAL_FORM_VALUES_KEY);
+  const storyTypeFormValues = getFormData(STORY_TYPE_FORM_VALUES_KEY);
+  const componentsFormValues = getFormData(COMPONENTS_FORM_VALUES_KEY);
+  const archetypeFormValues = getFormData(ARCHETYPE_FORM_VALUES_KEY);
+
+  console.log(
+    generatePrompt({
+      orderFormValues: data,
+      generalFormValues,
+      storyTypeFormValues,
+      componentsFormValues,
+      archetypeFormValues,
+    }),
+  );
+};
 
 const getInitialStep = () => {
-  const generalFormValue = getFormData(GENERAL_FORM_VALUES_KEY);
-  const storyFormValue = getFormData(STORY_FORM_VALUES_KEY);
-  const componentsFormValue = getFormData(COMPONENTS_FORM_VALUES_KEY);
-  const archetypeFormValue = getFormData(ARCHETYPE_FORM_VALUES_KEY);
+  const generalFormValues = getFormData(GENERAL_FORM_VALUES_KEY);
+  const storyFormValues = getFormData(STORY_TYPE_FORM_VALUES_KEY);
+  const componentsFormValues = getFormData(COMPONENTS_FORM_VALUES_KEY);
+  const archetypeFormValues = getFormData(ARCHETYPE_FORM_VALUES_KEY);
 
-  if (archetypeFormValue) {
+  if (archetypeFormValues) {
     return 5;
   }
 
-  if (componentsFormValue) {
+  if (componentsFormValues) {
     return 4;
   }
 
-  if (storyFormValue) {
+  if (storyFormValues) {
     return 3;
   }
 
-  if (generalFormValue) {
+  if (generalFormValues) {
     return 2;
   }
 
@@ -54,9 +71,9 @@ const Home = () => {
     setFormData(GENERAL_FORM_VALUES_KEY, data);
   };
 
-  const handleStoryFormSubmit = (data: StoryFormValues) => {
+  const handleStoryFormSubmit = (data: StoryTypeFormValues) => {
     setCurrentStep(3);
-    setFormData(STORY_FORM_VALUES_KEY, data);
+    setFormData(STORY_TYPE_FORM_VALUES_KEY, data);
   };
 
   const handleComponentsFormSubmit = (data: ComponentsFormValues) => {
@@ -69,11 +86,6 @@ const Home = () => {
     setFormData(ARCHETYPE_FORM_VALUES_KEY, data);
   };
 
-  const handleFinish = (data: OrderFormValues) => {
-    setCurrentStep(5);
-    console.log(data);
-  };
-
   if (currentStep === -1) {
     return null;
   }
@@ -82,7 +94,7 @@ const Home = () => {
     <>
       {currentStep === 1 ? <GeneralForm onSubmit={handleGeneralFormSubmit} /> : null}
       {currentStep === 2 ? (
-        <StoryForm onBackButtonClick={handleBackButtonClick} onSubmit={handleStoryFormSubmit} />
+        <StoryTypeForm onBackButtonClick={handleBackButtonClick} onSubmit={handleStoryFormSubmit} />
       ) : null}
       {currentStep === 3 ? (
         <ComponentsForm

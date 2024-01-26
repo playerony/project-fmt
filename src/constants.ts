@@ -1,5 +1,5 @@
 export const GENERAL_FORM_VALUES_KEY = 'generalFormValues';
-export const STORY_FORM_VALUES_KEY = 'storyFormValues';
+export const STORY_TYPE_FORM_VALUES_KEY = 'storyFormValues';
 export const COMPONENTS_FORM_VALUES_KEY = 'componentsFormValues';
 export const ARCHETYPE_FORM_VALUES_KEY = 'archetypeFormValues';
 
@@ -85,9 +85,25 @@ export const STORY_LANGUAGE_COMPLEXITY_DEFINITION = [
   { label: 'C2', value: 'c2' },
 ];
 
-export const STORY_LANGUAGE_DEFINITION = [
-  { label: 'English', value: 'english' },
-  { label: 'Polish', value: 'polish' },
+export const STORY_LANGUAGE_DEFINITION = [{ label: 'English', value: 'english' }];
+
+export const STORY_TYPE_DEFINITION = [
+  {
+    label: 'The story of me',
+    value: 'the-story-of-me',
+  },
+  {
+    label: 'The story of us',
+    value: 'the-story-of-us',
+  },
+  {
+    label: 'The story of an idea',
+    value: 'the-story-of-an-idea',
+  },
+  {
+    label: 'The story of results',
+    value: 'the-story-of-results',
+  },
 ];
 
 export const STORY_ARCHETYPE_DEFINITION = [
