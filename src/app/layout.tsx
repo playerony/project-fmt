@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
@@ -25,6 +26,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
     <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
       <ThemeProvider disableTransitionOnChange enableSystem attribute="class" defaultTheme="dark">
         {children}
+        <Toaster />
       </ThemeProvider>
     </body>
   </html>
