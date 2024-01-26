@@ -59,7 +59,7 @@ export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
   const [components, setComponents] = useState(getDefaultComponents());
   const selectedArchetype = useMemo(getSelectedArchetype, []);
 
-  const handleContinueButtonClick = () => onFinish({ components });
+  const handleCopyPromptButtonClick = () => onFinish({ components });
 
   return (
     <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
@@ -95,8 +95,8 @@ export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
           <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
             Back
           </Button>
-          <Button className="w-full" type="button" onClick={handleContinueButtonClick}>
-            Continue
+          <Button className="w-full" type="button" onClick={handleCopyPromptButtonClick}>
+            Copy prompt
           </Button>
         </CardFooter>
       </Card>
