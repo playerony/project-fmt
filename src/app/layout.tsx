@@ -23,7 +23,7 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en">
-    <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+    <body className={cn('h-dvh bg-background font-sans antialiased', fontSans.variable)}>
       <ThemeProvider disableTransitionOnChange enableSystem attribute="class" defaultTheme="dark">
         {children}
         <Toaster />
