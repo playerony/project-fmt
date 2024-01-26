@@ -11,29 +11,29 @@ import {
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
-import { STORY_FORM_VALUES_KEY } from '@/constants';
+import { STORY_TYPE_DEFINITION, STORY_TYPE_FORM_VALUES_KEY } from '@/constants';
 import { isObject } from '@/utils';
 import { useForm } from 'react-hook-form';
 
 import { getFormData } from '../utils';
 
-export interface StoryFormValues {
+export interface StoryTypeFormValues {
   storyBriefDescription: string;
   storyType: string;
 }
 
-const DEFAULT_FORM_VALUES: StoryFormValues = {
+const DEFAULT_FORM_VALUES: StoryTypeFormValues = {
   storyBriefDescription: '',
   storyType: 'the-story-of-me',
 };
 
-interface StoryFormProps {
+interface StoryTypeFormProps {
   onBackButtonClick: () => void;
-  onSubmit: (data: StoryFormValues) => void;
+  onSubmit: (data: StoryTypeFormValues) => void;
 }
 
 const getDefaultFormValues = () => {
-  const defaultValuesFromLocalStorage = getFormData(STORY_FORM_VALUES_KEY);
+  const defaultValuesFromLocalStorage = getFormData(STORY_TYPE_FORM_VALUES_KEY);
 
   if (!isObject(defaultValuesFromLocalStorage)) {
     return DEFAULT_FORM_VALUES;
@@ -45,8 +45,8 @@ const getDefaultFormValues = () => {
   };
 };
 
-export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
-  const form = useForm<StoryFormValues>({
+export const StoryTypeForm = ({ onBackButtonClick, onSubmit }: StoryTypeFormProps) => {
+  const form = useForm<StoryTypeFormValues>({
     defaultValues: getDefaultFormValues(),
   });
 
@@ -58,7 +58,7 @@ export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
       >
         <Card>
           <CardHeader>
-            <CardTitle>Choosing your story</CardTitle>
+            <CardTitle>Choosing your story type</CardTitle>
             <CardDescription>
               Think about a story you need to tell in a more powerful way.{' '}
               <strong>Which type of story is it?</strong> Choose one story type:
@@ -68,28 +68,10 @@ export const StoryForm = ({ onBackButtonClick, onSubmit }: StoryFormProps) => {
             <RadioGroupController
               className="grid grid-cols-2 gap-4"
               name="storyType"
-              options={[
-                {
-                  label: 'The story of me',
-                  value: 'the-story-of-me',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'The story of us',
-                  value: 'the-story-of-us',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'The story of an idea',
-                  value: 'the-story-of-an-idea',
-                  itemClassName: 'peer sr-only',
-                },
-                {
-                  label: 'The story of results',
-                  value: 'the-story-of-results',
-                  itemClassName: 'peer sr-only',
-                },
-              ]}
+              options={STORY_TYPE_DEFINITION.map((definition) => ({
+                ...definition,
+                itemClassName: 'peer sr-only',
+              }))}
               renderOptionChildren={(option) => (
                 <Label
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
