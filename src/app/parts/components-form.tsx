@@ -57,16 +57,16 @@ export const ComponentsForm = ({ onBackButtonClick, onSubmit }: ComponentsFormPr
   return (
     <Form {...form}>
       <form
-        className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]"
+        className="mx-auto flex h-full w-full flex-col justify-center space-y-6 px-2 sm:w-[500px]"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <Card>
-          <CardHeader>
+          <CardHeader className="px-4 pb-0 sm:p-6 sm:pb-0">
             <CardTitle>Components of your story</CardTitle>
             <CardDescription>Find the components of your great story.</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-6">
-            <Tabs className="w-[400px]" defaultValue="once-upon-a-time">
+          <CardContent className="grid gap-3 p-4 sm:gap-6 sm:p-6">
+            <Tabs className="min-w-full" defaultValue="once-upon-a-time">
               <ScrollArea>
                 <TabsList>
                   {COMPONENTS_DEFINITION.map(({ label, value }) => (
@@ -89,7 +89,7 @@ export const ComponentsForm = ({ onBackButtonClick, onSubmit }: ComponentsFormPr
               ))}
             </Tabs>
           </CardContent>
-          <CardFooter className="flex justify-between gap-4">
+          <CardFooter className="flex justify-between gap-3 px-4 pb-4 pt-0 sm:gap-4 sm:p-6 sm:pt-0">
             <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
               Back
             </Button>

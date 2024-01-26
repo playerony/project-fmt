@@ -62,19 +62,19 @@ export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
   const handleCopyPromptButtonClick = () => onFinish({ components });
 
   return (
-    <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]">
+    <div className="mx-auto flex h-full w-full flex-col justify-center space-y-6 px-2 sm:w-[500px]">
       <Card>
-        <CardHeader>
+        <CardHeader className="px-4 pb-0 sm:p-6 sm:pb-0">
           <CardTitle>Match the created components to the archetype</CardTitle>
           <CardDescription>
             Think about entire story. How would you like to describe it?
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-2">
+        <CardContent className="grid gap-3 p-4 sm:gap-6 sm:p-6">
           <h4 className="mb-1 text-lg font-semibold tracking-tight">
             Selected archetype: &quot;{selectedArchetype.label}&quot;
           </h4>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             {selectedArchetype.description} <strong>{selectedArchetype.summary}</strong>
           </p>
           <GenericSortableList
@@ -91,7 +91,7 @@ export const OrderForm = ({ onBackButtonClick, onFinish }: OrderFormProps) => {
             onDataSourceUpdate={setComponents}
           />
         </CardContent>
-        <CardFooter className="flex justify-between gap-4">
+        <CardFooter className="flex justify-between gap-3 px-4 pb-4 pt-0 sm:gap-4 sm:p-6 sm:pt-0">
           <Button className="w-full" variant="outline" onClick={onBackButtonClick}>
             Back
           </Button>
