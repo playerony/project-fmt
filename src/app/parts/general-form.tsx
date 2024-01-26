@@ -62,15 +62,15 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
   return (
     <Form {...form}>
       <form
-        className="mx-auto flex h-full w-full flex-col justify-center space-y-6 sm:w-[450px]"
+        className="mx-auto flex h-full w-full flex-col justify-center px-2 sm:w-[500px]"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <Card>
-          <CardHeader>
+          <CardHeader className="px-4 pb-0 sm:p-6 sm:pb-0">
             <CardTitle>General informations</CardTitle>
             <CardDescription>Add general details about a story you wanna tell.</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-6">
+          <CardContent className="grid gap-3 p-4 sm:gap-6 sm:p-6">
             <div className="grid gap-2">
               <SelectController
                 description="What language should your story be written in?"
@@ -108,7 +108,7 @@ export const GeneralForm = ({ onSubmit }: GeneralFormProps) => {
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="px-4 pb-4 pt-0 sm:p-6 sm:pt-0">
             <Button className="w-full" type="submit">
               Continue
             </Button>
